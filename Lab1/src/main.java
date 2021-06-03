@@ -3,7 +3,7 @@ import java.io.*;
 public class main {
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out.print("Write at least two arguments (e.g. '../input.txt ../output.csv')");
+            System.out.print("Write at least two arguments (e.g. 'input.txt output.csv')");
         } else {
             WordStatistic wordStatistic = new WordStatistic();
             try {
