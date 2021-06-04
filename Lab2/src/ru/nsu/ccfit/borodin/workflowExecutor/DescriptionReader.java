@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.borodin.workflowExecutor;
 
 import ru.nsu.ccfit.borodin.workflowExecutor.exceptions.ParsingException;
+import ru.nsu.ccfit.borodin.workflowExecutor.exceptions.WorkflowException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -34,13 +35,13 @@ public class DescriptionReader {
 
                 String[] idAndCommand = currentLine.split(" = ", 2);
                 if (idAndCommand.length < 2) {
-                    throw new ParsingException("Can not read command from description.");
+                    throw new ParsingException("Can not read command from description");
                 }
                 Integer id = Integer.valueOf(idAndCommand[0]);
                 if (blocks.containsKey(id)) {
                     log.log(Level.SEVERE, "Repeated id in description: " + currentLine
                             + "\t conflicts with: " + blocks.get(id));
-                    throw new ParsingException("Repeated id in description.");
+                    throw new ParsingException("Repeated id in description");
                 }
                 blocks.put(id, idAndCommand[1]);
             }

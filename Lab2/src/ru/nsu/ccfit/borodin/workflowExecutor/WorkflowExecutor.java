@@ -58,21 +58,21 @@ public class WorkflowExecutor {
                 currentBlock = BlockFactory.getInstance().getBlock(blockName);
             } catch (IOException e) {
                 log.log(Level.SEVERE, "Can not find block with id=" + blockIdx, e);
-                throw new BlockNotFoundException("Can not find block", e);
+                throw new BlockNotFoundException("Can not find block ", e);
             }
 
             BlockType blockType = currentBlock.getType();
             if (i == 0) {
                 if (blockType != BlockType.Output) {
-                    throw new WorkflowException("First block should be Output type.");
+                    throw new WorkflowException("First block should be Output type");
                 }
             } else if (i == blockSequence.length - 1) {
                 if (blockType != BlockType.Input) {
-                    throw new WorkflowException("Last block should be Input type.");
+                    throw new WorkflowException("Last block should be Input type");
                 }
             } else {
                 if (blockType != BlockType.InputOutput) {
-                    throw new WorkflowException("The block in the middle should be InputOutput type.");
+                    throw new WorkflowException("The block in the middle should be InputOutput type");
                 }
             }
 

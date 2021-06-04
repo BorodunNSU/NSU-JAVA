@@ -16,9 +16,10 @@ public class TestingWorkflowExecutor {
                 2 = writefile out.txt
                 3 = sort
                 4 = replace JavaScript ASM
+                5 = head 2
+                6 = tail 1
                 csed
-                1 -> 3 -> 4 -> 3 -> 2
-                """).getBytes());
+                1 -> 3 -> 4 -> 5 -> 6 -> 2""").getBytes());
         try {
             WorkflowExecutor workflow = new WorkflowExecutor(testStream);
             workflow.execute();
@@ -35,9 +36,10 @@ public class TestingWorkflowExecutor {
                 2 = writefile out.txt
                 3 = sort
                 4 = replace JavaScript ASM
+                5 = head 2
+                6 = tail 1
                 csed
-                1 -> 3 -> 2 -> 4 -> 3 -> 1
-                """).getBytes());
+                1 -> 2 -> 5""").getBytes());
 
         WorkflowExecutor workflow = new WorkflowExecutor(testStream);
         workflow.execute();
@@ -60,9 +62,10 @@ public class TestingWorkflowExecutor {
                 1 = writefile out.txt
                 1 = sort
                 1 = replace JavaScript ASM
+                1 = head 2
+                1 = tail 1
                 csed
-                1 -> 3 -> 4 -> 3 -> 2
-                """).getBytes());
+                1 -> 3 -> 4 -> 5 -> 6 -> 2""").getBytes());
 
         WorkflowExecutor workflow = new WorkflowExecutor(testStream);
         workflow.execute();

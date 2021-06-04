@@ -6,7 +6,7 @@ import ru.nsu.ccfit.borodin.workflowExecutor.exceptions.WorkflowException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrepBlock implements Block {
+public class TailBlock implements Block {
     @Override
     public List<String> execute(List<String> text, String[] args) throws WorkflowException {
         if (args == null || args.length < 1) {
@@ -16,14 +16,13 @@ public class GrepBlock implements Block {
             return null;
         }
 
-        List<String> textWithKeyWord = new ArrayList<>();
-        String keyWord = args[0];
-        for (String line : text) {
-            if(line.contains(" " + keyWord + " ")) {
-                textWithKeyWord.add(line);
-            }
+        int count = Integer.parseInt(args[0]);
+        List<String> tailText = new ArrayList<>();
+        for (int i = 0; i < Math.min(count, text.size()); ++i) {
+            tailText.add(text.get(text.size() - count + i));
         }
-        return textWithKeyWord;
+
+        return tailText;
     }
 
     @Override
