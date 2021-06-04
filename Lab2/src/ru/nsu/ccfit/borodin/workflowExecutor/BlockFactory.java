@@ -52,8 +52,7 @@ public class BlockFactory {
         Block newBlock;
         try {
             var blockClass = Class.forName(config.getProperty(blockName));
-            var blockObject = blockClass.getDeclaredConstructor().newInstance();
-            newBlock = (Block) blockObject;
+            newBlock = (Block) blockClass.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException e) {
             log.log(Level.SEVERE, "Factory can not find class by name", e);
             throw new BlockCreationException("Factory can not find class by name", e);
