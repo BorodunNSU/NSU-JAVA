@@ -87,7 +87,7 @@ public class WorkflowExecutor {
                 throw e;
             }
 
-            log.info("Block " + currentBlock + " was successfully executed");
+            log.info("Block " + currentBlock.getClass().getName() + " was successfully executed");
         }
     }
 }
