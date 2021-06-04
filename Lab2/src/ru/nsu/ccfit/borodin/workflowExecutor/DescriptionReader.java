@@ -1,7 +1,6 @@
 package ru.nsu.ccfit.borodin.workflowExecutor;
 
 import ru.nsu.ccfit.borodin.workflowExecutor.exceptions.ParsingException;
-import ru.nsu.ccfit.borodin.workflowExecutor.exceptions.WorkflowException;
 
 import java.io.*;
 import java.util.HashMap;

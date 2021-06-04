@@ -46,6 +46,10 @@ public class WorkflowExecutor {
             int blockIdx = blockSequence[i];
 
             String currentBlockDescription = description.get(blockIdx);
+            if (currentBlockDescription == null) {
+                throw new BlockNotFoundException("No block with " + blockIdx + " id");
+            }
+
             String[] blockNameAndArgs = currentBlockDescription.split(" ");
             String blockName = blockNameAndArgs[0];
             String[] blockArgs = null;
