@@ -32,8 +32,8 @@ public class Config {
             JSONObject stations = (JSONObject) obj.get("stations");
             JSONArray trains = (JSONArray) obj.get("trains");
 
-            for (Object value : items) {
-                JSONObject item = (JSONObject) value;
+            for (Object itemObj : items) {
+                JSONObject item = (JSONObject) itemObj;
                 String name = (String) item.get("name");
                 int factoryCount = ((Long) item.get("factoryCount")).intValue();
                 int consumerCount = ((Long) item.get("consumerCount")).intValue();
