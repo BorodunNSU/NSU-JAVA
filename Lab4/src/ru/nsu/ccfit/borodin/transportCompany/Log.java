@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Log {
-    private static final Logger logger = Logger.getLogger(Logger.class.getName());
+    private static final Logger logger = Logger.getLogger(TransportCompany.class.getName());
 
     public static void info(String msg) {
         logger.info(msg);
