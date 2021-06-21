@@ -64,7 +64,7 @@ public class Config {
                 trainInfo.put(name, info);
             }
 
-            int distance = ((Long) stations.get("dist")).intValue();
+            int distance = ((Long) stations.get("distance")).intValue();
             int startLoadTrack = ((Long) stations.get("startLoadTrack")).intValue();
             int distLoadTrack = ((Long) stations.get("distLoadTrack")).intValue();
             int trackFromStartToDist = ((Long) stations.get("trackFromStartToDist")).intValue();
