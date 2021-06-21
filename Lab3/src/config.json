@@ -24,9 +24,9 @@
     }
   ],
   "stations": {
-    "distance": 150,
-    "startLoadTrack": 5,
-    "distLoadTrack": 5,
+    "distance": 500,
+    "startLoadTrack": 3,
+    "distLoadTrack": 3,
     "trackFromStartToDist": 2,
     "trackFromDistToStart": 2
   },
