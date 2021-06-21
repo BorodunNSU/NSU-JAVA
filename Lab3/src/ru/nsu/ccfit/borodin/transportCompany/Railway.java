@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class Railway {
     private final int capacity;
     private volatile int busyCount;
@@ -14,7 +16,7 @@ public class Railway {
     }
 
     public synchronized void getRailway() throws InterruptedException {
-        while (busyCount >= capacity) {
+        if (busyCount >= capacity) {
             wait();
         }
         busyCount++;

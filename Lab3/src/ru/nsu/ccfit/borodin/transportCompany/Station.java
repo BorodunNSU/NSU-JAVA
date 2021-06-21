@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -11,11 +13,11 @@ public class Station {
         trains = new ArrayBlockingQueue<>(trackNumbers);
     }
 
-    public void startLoad(Train train) throws InterruptedException {
+    public void acceptTrain(Train train) throws InterruptedException {
         trains.put(train);
     }
 
-    public void endLoad(Train train) {
+    public void sendTrain(Train train) {
         trains.remove(train);
     }
 

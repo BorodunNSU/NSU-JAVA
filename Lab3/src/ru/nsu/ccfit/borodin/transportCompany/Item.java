@@ -1,7 +1,9 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Item {
-    private String name;
+    private final String name;
     private final static AtomicInteger counter = new AtomicInteger();
     private final int id;
 

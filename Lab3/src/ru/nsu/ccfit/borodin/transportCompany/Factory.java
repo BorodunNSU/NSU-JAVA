@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class Factory extends Thread {
     private final Warehouse warehouse;
     private final String itemName;
@@ -15,13 +17,12 @@ public class Factory extends Thread {
             try {
                 Thread.sleep(itemCreateTime);
                 Item item = new Item(itemName);
-                Log.logInfo("Factory created '" + itemName +"'");
+                Log.info("Factory created '" + itemName +"'");
                 warehouse.addItem(item);
             } catch (InterruptedException e) {
-                Log.logInfo("Factory of '"+ itemName + "' has been stopped");
+                Log.info("Factory of '"+ itemName + "' has been stopped");
                 return;
             }
         }
-        Log.logInfo("Factory of '"+ itemName + "' has been stopped");
     }
 }

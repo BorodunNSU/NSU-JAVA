@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.*;
 
 public class Train extends Thread {
@@ -14,13 +16,13 @@ public class Train extends Thread {
         this.speed = speed;
         this.amortizationTime = amortizationTime;
         this.config = config;
-        this.railwaySystem = railwaySystem;
         items = new HashMap<>();
         this.depot = depot;
+        this.railwaySystem = railwaySystem;
     }
 
     private void load(Station station) throws ConfigException, InterruptedException {
-        station.startLoad(this);
+        station.acceptTrain(this);
         for (Map.Entry<String, Integer> entry : config.getCapacityMap(name).entrySet()) {
             String item = entry.getKey();
             Warehouse warehouse = station.getWarehouse(item);
@@ -29,11 +31,11 @@ public class Train extends Thread {
                 items.computeIfAbsent(item, (x) -> new ArrayList<>()).add(warehouse.getItem());
             }
         }
-        station.endLoad(this);
+        station.sendTrain(this);
     }
 
     private void unload(Station station) throws InterruptedException, ConfigException {
-        station.startLoad(this);
+        station.acceptTrain(this);
         for (Map.Entry<String, Integer> entry : config.getCapacityMap(name).entrySet()) {
             String item = entry.getKey();
             Warehouse warehouse = station.getWarehouse(item);
@@ -42,7 +44,7 @@ public class Train extends Thread {
                 warehouse.addItem(items.get(item).get(0));
             }
         }
-        station.endLoad(this);
+        station.sendTrain(this);
     }
 
     @Override
@@ -52,31 +54,31 @@ public class Train extends Thread {
             while ((Calendar.getInstance().getTimeInMillis() / 1000 - startTime) < amortizationTime) {
                 load(railwaySystem.getDepart());
                 railwaySystem.getRoadToDest().getRailway();
-                Log.logInfo("Train  '" + name + "' started moving");
+                Log.info("Train  '" + name + "' started moving");
                 int dist = 0;
                 while (dist < railwaySystem.getRoadToDest().getDistance()) {
                     dist += speed;
                     Thread.sleep(1000);
                 }
-                Log.logInfo("Train " + name + "' arrive");
+                Log.info("Train " + name + "' arrive");
                 railwaySystem.getRoadToDest().freeRailway();
 
                 unload(railwaySystem.getArrive());
                 railwaySystem.getRoadBack().getRailway();
-                Log.logInfo("Train '" + name + "' started moving back");
+                Log.info("Train '" + name + "' started moving back");
                 dist = 0;
                 while (dist < railwaySystem.getRoadBack().getDistance()) {
                     dist += speed;
                     Thread.sleep(1000);
                 }
-                Log.logInfo("Train '" + name + "' arrived back");
+                Log.info("Train '" + name + "' arrived back");
                 railwaySystem.getRoadBack().freeRailway();
             }
-                depot.addNewOrder(name);
+            depot.addNewOrder(name);
         } catch (InterruptedException e) {
-            Log.logInfo("Train '" + name + "' is stopped");
+            Log.info("Train '" + name + "' have been interrupted");
         } catch (ConfigException e) {
-            Log.logError("Can`t get config data for train" + name);
+            Log.severe("Can`t get config data for train" + name, e);
         }
     }
 }

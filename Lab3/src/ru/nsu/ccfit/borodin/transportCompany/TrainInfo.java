@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.HashMap;
 import java.util.Map;
 

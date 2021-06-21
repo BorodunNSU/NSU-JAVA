@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class RailwaySystem {
     private final Station depart;
     private final Station arrive;

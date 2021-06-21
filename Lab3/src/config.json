@@ -1,0 +1,65 @@
+{
+  "items": [
+    {
+      "name": "cola",
+      "factoryCount": 3,
+      "consumerCount": 3,
+      "startCapacity": 250,
+      "distCapacity": 250,
+      "timeToCreate": 2,
+      "timeToConsume": 5,
+      "timeToLoad": 2,
+      "timeToUnload": 3
+    },
+    {
+      "name": "pepsi",
+      "factoryCount": 1,
+      "consumerCount": 3,
+      "startCapacity": 200,
+      "distCapacity": 200,
+      "timeToCreate": 1,
+      "timeToConsume": 7,
+      "timeToLoad": 1,
+      "timeToUnload": 2
+    }
+  ],
+  "stations": {
+    "dist": 150,
+    "startLoadTrack": 5,
+    "distLoadTrack": 5,
+    "trackFromStartToDist": 2,
+    "trackFromDistToStart": 2
+  },
+  "trains": [
+    {
+      "name": "first",
+      "capacity": {
+        "cola": 25,
+        "pepsi": 10
+      },
+      "speed": 120,
+      "timeToCreate": 1,
+      "amortizationTime": 90
+    },
+    {
+      "name": "second",
+      "capacity": {
+        "cola": 10,
+        "pepsi": 25
+      },
+      "speed": 110,
+      "timeToCreate": 1,
+      "amortizationTime": 110
+    },
+    {
+      "name": "third",
+      "capacity": {
+        "cola": 20,
+        "pepsi": 20
+      },
+      "speed": 130,
+      "timeToCreate": 2,
+      "amortizationTime": 100
+    }
+  ]
+}

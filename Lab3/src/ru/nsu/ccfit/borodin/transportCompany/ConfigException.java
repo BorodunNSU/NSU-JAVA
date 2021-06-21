@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class ConfigException extends Exception {
     public ConfigException() {
         super();

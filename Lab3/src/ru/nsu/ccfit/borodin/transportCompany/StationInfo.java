@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class StationInfo {
     private final int distance;
     private final int startLoadTrack;

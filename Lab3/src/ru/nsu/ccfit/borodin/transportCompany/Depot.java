@@ -1,3 +1,5 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
@@ -12,32 +14,34 @@ public class Depot {
 
     public Depot(Config config, RailwaySystem system) {
         this.config = config;
-        executor = Executors.newScheduledThreadPool(config.getTrainsNum());
         this.system = system;
+        executor = Executors.newScheduledThreadPool(config.getTrainsNum());
         trains = new ConcurrentLinkedQueue<>();
     }
 
     public void addNewOrder(String name) throws ConfigException {
-        Log.logInfo("Add order to train '" + name + "' to depot");
-        Log.logInfo("Creating train '" + name + "'");
+        Log.info("Adding order to train '" + name + "' to depot");
+        Log.info("Creating train '" + name + "'");
         int createTime = config.getTrainCreateTime(name);
         int speed = config.getTrainSpeed(name);
         int amortizationTime = config.getTrainAmortizationTime(name);
+
         Depot depot = this;
         executor.schedule(() -> {
             Train train = new Train(name, speed, amortizationTime, config, system, depot);
             trains.add(train);
-            Log.logInfo("Train " + name + " was created");
+            Log.info("Train " + name + " was created");
             train.start();
         }, createTime, TimeUnit.SECONDS);
     }
 
     public void stop() throws InterruptedException {
+        Log.info("Shutting down depot");
+
         executor.shutdownNow();
         if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
             trains.forEach(Thread::interrupt);
         }
-        Log.logInfo("Depot has been stopped");
     }
 }
 

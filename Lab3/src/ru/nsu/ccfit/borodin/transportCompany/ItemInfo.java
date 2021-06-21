@@ -1,6 +1,9 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 public class ItemInfo {
     private final String name;
     private final int factoryCount;
+    private final int consumerCount;
     private final int startWarehouseCapacity;
     private final int distWarehouseCapacity;
     private final int timeToCreate;
@@ -14,6 +17,10 @@ public class ItemInfo {
 
     public int getFactoryCount() {
         return factoryCount;
+    }
+
+    public int getConsumerCount() {
+        return consumerCount;
     }
 
     public int getStartWarehouseCapacity() {
@@ -40,9 +47,11 @@ public class ItemInfo {
         return timeToUnload;
     }
 
-    public ItemInfo(String name, int factoryCount, int startWarehouseCapacity, int distWarehouseCapacity, int timeToCreate, int timeToConsume, int timeToLoad, int timeToUnload) {
+    public ItemInfo(String name, int factoryCount, int consumerCount, int startWarehouseCapacity, int distWarehouseCapacity,
+                    int timeToCreate, int timeToConsume, int timeToLoad, int timeToUnload) {
         this.name = name;
         this.factoryCount = factoryCount;
+        this.consumerCount = consumerCount;
         this.startWarehouseCapacity = startWarehouseCapacity;
         this.distWarehouseCapacity = distWarehouseCapacity;
         this.timeToCreate = timeToCreate;

@@ -1,19 +1,20 @@
+package ru.nsu.ccfit.borodin.transportCompany;
+
 import java.util.Scanner;
 
 public class Main {
+    public static void main(String[] args) {
+        String configName = "/config.json";
 
-    public static void main(String[] args) throws InterruptedException {
         TransportCompany company = new TransportCompany();
         try {
-            company.startCompany();
-        } catch (ConfigException e) {
-            e.printStackTrace();
+            company.startCompany(configName);
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
             company.stopCompany();
+        } catch (ConfigException | InterruptedException e) {
+            e.printStackTrace();
+            Log.severe("Error occurred in transport company" , e);
         }
-
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-
-        company.stopCompany();
     }
 }
