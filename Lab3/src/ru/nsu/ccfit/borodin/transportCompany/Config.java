@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Config {
-    private final HashMap<String, TrainInfo> trainInfo;
-    private final HashMap<String, ItemInfo> itemInfo;
-    private StationInfo stationInfo;
+    private final HashMap<String, ItemInfo> itemsInfo;
+    private final HashMap<String, TrainInfo> trainsInfo;
+    private StationInfo stationsInfo;
 
     public Config() {
-        trainInfo = new HashMap<>();
-        itemInfo = new HashMap<>();
+        itemsInfo = new HashMap<>();
+        trainsInfo = new HashMap<>();
     }
 
     public void parseConfig(String configName) {
@@ -43,9 +43,9 @@ public class Config {
                 int timeToConsume = ((Long) item.get("timeToConsume")).intValue();
                 int timeToLoad = ((Long) item.get("timeToLoad")).intValue();
                 int timeToUnload = ((Long) item.get("timeToUnload")).intValue();
-                ItemInfo info = new ItemInfo(name, factoryCount,consumerCount, startCapacity, distCapacity, timeToCreate,
+                ItemInfo info = new ItemInfo(name, factoryCount, consumerCount, startCapacity, distCapacity, timeToCreate,
                         timeToConsume, timeToLoad, timeToUnload);
-                itemInfo.put(name, info);
+                itemsInfo.put(name, info);
             }
 
             for (Object trainObj : trains) {
@@ -53,7 +53,7 @@ public class Config {
                 JSONObject train = (JSONObject) trainObj;
                 String name = (String) train.get("name");
                 JSONObject capacity = (JSONObject) train.get("capacity");
-                for (String itemName : itemInfo.keySet()) {
+                for (String itemName : itemsInfo.keySet()) {
                     int itemCapacity = ((Long) capacity.get(itemName)).intValue();
                     capacityMap.put(itemName, itemCapacity);
                 }
@@ -61,7 +61,7 @@ public class Config {
                 int timeToCreate = ((Long) train.get("timeToCreate")).intValue();
                 int amortizationTime = ((Long) train.get("amortizationTime")).intValue();
                 TrainInfo info = new TrainInfo(name, speed, capacityMap, timeToCreate, amortizationTime);
-                trainInfo.put(name, info);
+                trainsInfo.put(name, info);
             }
 
             int distance = ((Long) stations.get("distance")).intValue();
@@ -69,124 +69,124 @@ public class Config {
             int distLoadTrack = ((Long) stations.get("distLoadTrack")).intValue();
             int trackFromStartToDist = ((Long) stations.get("trackFromStartToDist")).intValue();
             int trackFromDistToStart = ((Long) stations.get("trackFromDistToStart")).intValue();
-            stationInfo = new StationInfo(distance, startLoadTrack, distLoadTrack, trackFromStartToDist, trackFromDistToStart);
+            stationsInfo = new StationInfo(distance, startLoadTrack, distLoadTrack, trackFromStartToDist, trackFromDistToStart);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
 
     public int getDistance() {
-        return stationInfo.getDistance();
+        return stationsInfo.getDistance();
     }
 
     public int getStartLoadTrack() {
-        return stationInfo.getStartLoadTrack();
+        return stationsInfo.getStartLoadTrack();
     }
 
     public int getDistLoadTrack() {
-        return stationInfo.getDistLoadTrack();
+        return stationsInfo.getDistLoadTrack();
     }
 
     public int getTrackFromStartToDist() {
-        return stationInfo.getTrackFromStartToDist();
+        return stationsInfo.getTrackFromStartToDist();
     }
 
     public int getTrackFromDistToStart() {
-        return stationInfo.getTrackFromDistToStart();
+        return stationsInfo.getTrackFromDistToStart();
     }
 
     public List<String> getListOfItems() {
-        return new ArrayList<>(itemInfo.keySet());
+        return new ArrayList<>(itemsInfo.keySet());
     }
 
     public List<String> getListOfTrains() {
-        return new ArrayList<>(trainInfo.keySet());
+        return new ArrayList<>(trainsInfo.keySet());
     }
 
     public Map<String, Integer> getCapacityMap(String name) throws ConfigException {
-        if (trainInfo.get(name) != null) {
-            return trainInfo.get(name).getCapacity();
+        if (trainsInfo.get(name) != null) {
+            return trainsInfo.get(name).getCapacity();
         }
         throw new ConfigException("unknown train name");
     }
 
     public int getTrainsNum() {
-        return trainInfo.size();
+        return trainsInfo.size();
     }
 
     public int getTrainSpeed(String name) throws ConfigException {
-        if (trainInfo.get(name) != null) {
-            return trainInfo.get(name).getSpeed();
+        if (trainsInfo.get(name) != null) {
+            return trainsInfo.get(name).getSpeed();
         }
         throw new ConfigException("unknown train name");
     }
 
     public int getTrainAmortizationTime(String name) throws ConfigException {
-        if (trainInfo.get(name) != null) {
-            return trainInfo.get(name).getAmortizationTime();
+        if (trainsInfo.get(name) != null) {
+            return trainsInfo.get(name).getAmortizationTime();
         }
         throw new ConfigException("unknown train name");
     }
 
     public int getTrainCreateTime(String name) throws ConfigException {
-        if (trainInfo.get(name) != null) {
-            return trainInfo.get(name).getTimeToCreate();
+        if (trainsInfo.get(name) != null) {
+            return trainsInfo.get(name).getTimeToCreate();
         }
         throw new ConfigException("unknown train name");
     }
 
     public int getFactoryCount(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getFactoryCount();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getFactoryCount();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getConsumerCount(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getConsumerCount();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getConsumerCount();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getStartCapacity(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getStartWarehouseCapacity();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getStartWarehouseCapacity();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getDistCapacity(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getDistWarehouseCapacity();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getDistWarehouseCapacity();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getTimeToCreateItem(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getTimeToCreate();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getTimeToCreate();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getTimeToConsume(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getTimeToConsume();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getTimeToConsume();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getTimeToLoad(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getTimeToLoad();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getTimeToLoad();
         }
         throw new ConfigException("unknown item name");
     }
 
     public int getTimeToUnload(String name) throws ConfigException {
-        if (itemInfo.get(name) != null) {
-            return itemInfo.get(name).getTimeToUnload();
+        if (itemsInfo.get(name) != null) {
+            return itemsInfo.get(name).getTimeToUnload();
         }
         throw new ConfigException("unknown item name");
     }
